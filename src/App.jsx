@@ -9,21 +9,60 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import PagDenegada from "./components/PagDenegada";
 import CreacionUsuarios from "./components/CreacionUsuarios";
 
+// SUBPÁGINAS DIRECTAS DEL ADMIN (CONTROLADAS DESDE AdminDashboard)
+import SemesterManagement from "./components/SemesterManagement";
+import UserManagement from "./components/UserManagement";
+import AssignmentManagement from "./components/AssignmentManagement";
+import ReportsView from "./components/ReportsView";
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* Página de Login */}
+        {/* LOGIN */}
         <Route path="/" element={<Login />} />
-
-        {/* -------------------------
-            RUTAS PROTEGIDAS
-        -------------------------- */}
 
         {/* ADMIN */}
         <Route
-          path="/admin/dashboard"
+          path="/admin"
+          element={
+            <ProtectedRoute role="ADMIN">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* SUBRUTAS DEL ADMIN (para navegación directa por URL) */}
+        <Route
+          path="/admin/semestres"
+          element={
+            <ProtectedRoute role="ADMIN">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/asignar"
+          element={
+            <ProtectedRoute role="ADMIN">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/usuarios"
+          element={
+            <ProtectedRoute role="ADMIN">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/reportes"
           element={
             <ProtectedRoute role="ADMIN">
               <AdminDashboard />
@@ -61,14 +100,14 @@ function App() {
           }
         />
 
-        {/* Página de acceso denegado */}
+        {/* ACCESO DENEGADO */}
         <Route path="/acceso-denegado" element={<PagDenegada />} />
 
-        {/* Redirección para rutas inexistentes */}
-        <Route path="*" element={<Navigate to="/" />} />
-
-        {/* Creacion de usuarios */}
+        {/* CREACIÓN DE USUARIOS */}
         <Route path="/creacionusuarios" element={<CreacionUsuarios />} />
+
+        {/* RUTAS NO EXISTENTES */}
+        <Route path="*" element={<Navigate to="/" />} />
 
       </Routes>
     </BrowserRouter>

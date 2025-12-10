@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 // Debes crear estos archivos con el código sugerido en la respuesta anterior.
 import SemesterManagement from './SemesterManagement'; // 🗓️
 import UserManagement from './UserManagement'; // ⚙️
-import AssignmentManagement from './AssignmentManagement'; // 👥
-import ReportsView from './ReportsView'; //
+import AssignmentManagement from './AssignmentManagement';
+import ReportsView from './ReportsView'; // 📊
 // ----------------------------------------------------------------------
 
 

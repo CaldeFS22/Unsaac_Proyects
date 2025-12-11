@@ -66,16 +66,16 @@ export default function Login() {
       // Redirigir según rol
       switch (data.role) {
         case "Administrador":
-          navigate("/admin");
+          navigate("/admin/dashboard");
           break;
         case "Tutor":
-          navigate("/tutor");
+          navigate("/tutor/dashboard");
           break;
         case "Verificador":
-          navigate("/verificador");
+          navigate("/verificador/dashboard");
           break;
         default:
-          navigate("/estudiante");
+          navigate("/estudiante/dashboard");
       }
 
     } catch (err) {

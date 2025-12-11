@@ -1,31 +1,33 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "./components/Login";
-import AdminDashboard from "./components/AdminDashboard";
-import EstudianteDashboard from "./components/EstudianteDashboard";
-import TutorDashboard from "./components/TutorDashboard";
-import VerificadorDashboard from "./components/VerificadorDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PagDenegada from "./components/PagDenegada";
 import CreacionUsuarios from "./components/CreacionUsuarios";
 
-// SUBPÁGINAS DIRECTAS DEL ADMIN (CONTROLADAS DESDE AdminDashboard)
-import SemesterManagement from "./components/SemesterManagement";
-import UserManagement from "./components/UserManagement";
-import AssignmentManagement from "./components/AssignmentManagement";
-import ReportsView from "./components/ReportsView";
+// Dashboards de roles
+import AdminDashboard from "./components/AdminDashboard";
+import EstudianteDashboard from "./components/EstudianteDashboard";
+import TutorDashboard from "./components/TutorDashboard";
+import VerificadorDashboard from "./components/VerificadorDashboard";
+
+// Módulos internos del AdminDashboard
+import SemesterManager from "./components/SemesterManager";
+import AssignmentManager from "./components/AssignmentManager";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* LOGIN */}
+        {/* Login */}
         <Route path="/" element={<Login />} />
 
-        {/* ADMIN */}
+        {/* ============================================================
+                        RUTAS PARA EL ADMINISTRADOR
+        ============================================================ */}
         <Route
-          path="/admin"
+          path="/admin/dashboard"
           element={
             <ProtectedRoute role="ADMIN">
               <AdminDashboard />
@@ -33,9 +35,9 @@ function App() {
           }
         />
 
-        {/* SUBRUTAS DEL ADMIN (para navegación directa por URL) */}
+        {/* Rutas internas del panel admin */}
         <Route
-          path="/admin/semestres"
+          path="/admin/dashboard/*"
           element={
             <ProtectedRoute role="ADMIN">
               <AdminDashboard />
@@ -43,34 +45,38 @@ function App() {
           }
         />
 
+        {/* Subrutas del administrador (necesarias para que funcionen los <Link>) */}
         <Route
-          path="/admin/asignar"
+          path="/admin/semesters"
           element={
             <ProtectedRoute role="ADMIN">
-              <AdminDashboard />
+              <SemesterManager />
             </ProtectedRoute>
           }
         />
 
         <Route
-          path="/admin/usuarios"
+          path="/admin/assignments"
           element={
             <ProtectedRoute role="ADMIN">
-              <AdminDashboard />
+              <AssignmentManager />
             </ProtectedRoute>
           }
         />
 
         <Route
-          path="/admin/reportes"
+          path="/admin/reports"
           element={
             <ProtectedRoute role="ADMIN">
-              <AdminDashboard />
+              <div className="p-8 text-xl font-semibold">Módulo de Reportes (Próximamente)</div>
             </ProtectedRoute>
           }
         />
 
-        {/* ESTUDIANTE */}
+        {/* ============================================================
+                        RUTAS DE OTROS ROLES
+        ============================================================ */}
+
         <Route
           path="/estudiante/dashboard"
           element={
@@ -80,7 +86,6 @@ function App() {
           }
         />
 
-        {/* TUTOR */}
         <Route
           path="/tutor/dashboard"
           element={
@@ -90,7 +95,6 @@ function App() {
           }
         />
 
-        {/* VERIFICADOR */}
         <Route
           path="/verificador/dashboard"
           element={
@@ -100,13 +104,13 @@ function App() {
           }
         />
 
-        {/* ACCESO DENEGADO */}
+        {/* Página de Acceso Denegado */}
         <Route path="/acceso-denegado" element={<PagDenegada />} />
 
-        {/* CREACIÓN DE USUARIOS */}
+        {/* Crear usuarios */}
         <Route path="/creacionusuarios" element={<CreacionUsuarios />} />
 
-        {/* RUTAS NO EXISTENTES */}
+        {/* Redirección para rutas inválidas */}
         <Route path="*" element={<Navigate to="/" />} />
 
       </Routes>

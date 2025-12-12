@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { Calendar, FileText, Bell, ChevronDown, LogOut, BookOpen } from 'lucide-react';
+import { Calendar, FileText, Bell, ChevronDown, LogOut, BookOpen, PenIcon } from 'lucide-react';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
@@ -17,6 +17,7 @@ const AdminDashboard = () => {
     const menuItems = [
         { path: '/admin/semesters', label: 'Semesters & Schedules', icon: Calendar },
         { path: '/admin/assignments', label: 'Assignments', icon: BookOpen },
+        { path: '/admin/editar', label: 'Ediciones', icon: PenIcon },
         { path: '/admin/reports', label: 'Reports', icon: FileText },
     ];
 

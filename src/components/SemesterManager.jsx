@@ -1,3 +1,5 @@
+
+import { API_URL } from "../config";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
@@ -21,6 +23,7 @@ const SemesterManager = () => {
     const menuItems = [
         { path: '/admin/semesters', label: 'Semesters & Schedules', icon: Calendar },
         { path: '/admin/assignments', label: 'Assignments', icon: BookOpen },
+        //{ path: '/admin/editar', label: 'Ediciones', icon: PenIcon },
         { path: '/admin/reports', label: 'Reports', icon: FileText },
     ];
 
@@ -34,7 +37,7 @@ const SemesterManager = () => {
 
     const fetchSemesters = async () => {
         try {
-            const res = await axios.get('http://localhost:3000/api/admin/semesters');
+            const res = await axios.get(`${API_URL}/api/admin/semesters`);
             setSemesters(res.data);
         } catch (error) {
             console.error(error);
@@ -44,7 +47,7 @@ const SemesterManager = () => {
     const handleCreate = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:3000/api/admin/semesters', newSemester);
+            await axios.post(`${API_URL}/api/admin/semesters`, newSemester);
             setMessage('Semester created successfully!');
             fetchSemesters();
             setNewSemester({ name: '', start_date: '', end_date: '' });

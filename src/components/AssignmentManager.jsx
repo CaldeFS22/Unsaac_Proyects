@@ -33,6 +33,7 @@ const AssignmentManager = () => {
     const menuItems = [
         { path: '/admin/semesters', label: 'Semesters & Schedules', icon: Calendar },
         { path: '/admin/assignments', label: 'Assignments', icon: BookOpen },
+        //{ path: '/admin/editar', label: 'Ediciones', icon: PenIcon },
         { path: '/admin/reports', label: 'Reports', icon: FileText },
     ];
 
@@ -66,7 +67,7 @@ const AssignmentManager = () => {
 
     const fetchInitialData = async () => {
         try {
-            const semRes = await axios.get('http://localhost:3000/api/admin/semesters');
+            const semRes = await axios.get(`${API_URL}/api/admin/semesters`);
             setSemesters(semRes.data);
         } catch (error) {
             console.error('Error fetching semesters:', error);
@@ -74,7 +75,7 @@ const AssignmentManager = () => {
         }
 
         try {
-            const tutorRes = await axios.get('http://localhost:3000/api/admin/tutors');
+            const tutorRes = await axios.get(`${API_URL}/api/admin/tutors`);
             setTutors(tutorRes.data);
         } catch (error) {
             console.error('Error fetching tutors:', error);
@@ -84,7 +85,7 @@ const AssignmentManager = () => {
 
     const fetchUnassignedStudents = async () => {
         try {
-            const res = await axios.get(`http://localhost:3000/api/admin/students/unassigned?semester_id=${selectedSemester}`);
+            const res = await axios.get(`${API_URL}/api/admin/students/unassigned?semester_id=${selectedSemester}`);
             setUnassignedStudents(res.data);
             setSelectedStudents([]);
         } catch (error) {
@@ -94,7 +95,7 @@ const AssignmentManager = () => {
 
     const fetchAssignedStudents = async () => {
         try {
-            const res = await axios.get(`http://localhost:3000/api/admin/assignments?semester_id=${selectedSemester}&tutor_id=${selectedTutor}`);
+            const res = await axios.get(`${API_URL}/api/admin/assignments?semester_id=${selectedSemester}&tutor_id=${selectedTutor}`);
             setAssignedStudents(res.data);
         } catch (error) {
             console.error('Error fetching assigned students:', error);
@@ -103,7 +104,7 @@ const AssignmentManager = () => {
 
     const fetchTutorSchedule = async () => {
         try {
-            const res = await axios.get(`http://localhost:3000/api/admin/tutors/${selectedTutor}/schedule?semester_id=${selectedSemester}`);
+            const res = await axios.get(`${API_URL}/api/admin/tutors/${selectedTutor}/schedule?semester_id=${selectedSemester}`);
             setSchedule(res.data);
         } catch (error) {
             console.error('Error fetching schedule:', error);
@@ -126,7 +127,7 @@ const AssignmentManager = () => {
         }
 
         try {
-            await axios.post('http://localhost:3000/api/admin/assignments/mass', {
+            await axios.post(`${API_URL}/api/admin/assignments/mass`, {
                 semester_id: selectedSemester,
                 tutor_id: selectedTutor,
                 student_ids: selectedStudents
@@ -146,7 +147,7 @@ const AssignmentManager = () => {
         if (!window.confirm('¿Estás seguro de que quieres desasignar a este estudiante?')) return;
 
         try {
-            await axios.delete(`http://localhost:3000/api/admin/assignments/${assignmentId}`);
+            await axios.delete(`${API_URL}/api/admin/assignments/${assignmentId}`);
             setMessage({ type: 'success', text: 'Estudiante desasignado correctamente.' });
             fetchAssignedStudents();
             fetchUnassignedStudents();
@@ -182,7 +183,7 @@ const AssignmentManager = () => {
         }
 
         try {
-            await axios.post(`http://localhost:3000/api/admin/tutors/${selectedTutor}/schedule`, {
+            await axios.post(`${API_URL}/api/admin/tutors/${selectedTutor}/schedule`, {
                 semester_id: selectedSemester,
                 schedule_items: schedule
             });

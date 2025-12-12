@@ -14,6 +14,7 @@ import VerificadorDashboard from "./components/VerificadorDashboard";
 // Módulos internos del AdminDashboard
 import SemesterManager from "./components/SemesterManager";
 import AssignmentManager from "./components/AssignmentManager";
+import EditManager from "./components/EditManager"; // Puesto en ingles para mejor concordancia
 
 function App() {
   return (
@@ -60,6 +61,15 @@ function App() {
           element={
             <ProtectedRoute role="ADMIN">
               <AssignmentManager />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/editar"
+          element={
+            <ProtectedRoute role="ADMIN">
+              <EditManager />
             </ProtectedRoute>
           }
         />
